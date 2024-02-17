@@ -2,7 +2,7 @@ import cv2
 import os
 import numpy as np
 
-master_path_to_dataset = "TTBB-durham-02-10-17-sub10"; 
+master_path_to_dataset = "TTBB-durham-02-10-17-sub10"; #dataset has since been lost, contained 2 subfolders:
 directory_to_cycle_left = "left-images";     
 directory_to_cycle_right = "right-images";   
 
@@ -23,10 +23,9 @@ full_path_directory_right =  os.path.join(master_path_to_dataset, directory_to_c
 
 left_file_list = sorted(os.listdir(full_path_directory_left));
 
-# setup the disparity stereo processor to find a maximum of 128 disparity values
-# (adjust parameters if needed - this will effect speed to processing)
+# sets up the disparity stereo processor to find a maximum of 128 disparity values
 
-# uses a modified H. Hirschmuller algorithm [Hirschmuller, 2008] that differs (see opencv manual)
+# uses a modified H. Hirschmuller algorithm [Hirschmuller, 2008] that differs (from opencv manual)
 
 # FROM manual: stereoProcessor = cv2.StereoSGBM(numDisparities=128, SADWindowSize=21);
 
@@ -42,8 +41,6 @@ stereoProcessor = cv2.StereoSGBM_create(0, max_disparity, 21);
 
 for filename_left in left_file_list:
 
-    # skip forward to start a file we specify by timestamp (if this is set)
-
     if ((len(skip_forward_file_pattern) > 0) and not(skip_forward_file_pattern in filename_left)):
         continue;
     elif ((len(skip_forward_file_pattern) > 0) and (skip_forward_file_pattern in filename_left)):
@@ -54,8 +51,6 @@ for filename_left in left_file_list:
     filename_right = filename_left.replace("_L", "_R");
     full_path_filename_left = os.path.join(full_path_directory_left, filename_left);
     full_path_filename_right = os.path.join(full_path_directory_right, filename_right);
-
-    # for sanity print out these filenames
 
     print(full_path_filename_left);
     print(full_path_filename_right);
