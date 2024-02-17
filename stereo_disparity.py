@@ -1,33 +1,13 @@
-#####################################################################
-
-# Example : load, display and compute SGBM disparity
-# for a set of rectified stereo images from a  directory structure
-# of left-images / right-images with filesname DATE_TIME_STAMP_{L|R}.png
-
-# basic illustrative python script for use with provided stereo datasets
-
-# Author : Toby Breckon, toby.breckon@durham.ac.uk
-
-# Copyright (c) 2017 Department of Computer Science,
-#                    Durham University, UK
-# License : LGPL - http://www.gnu.org/licenses/lgpl.html
-
-#####################################################################
-
 import cv2
 import os
 import numpy as np
 
-# where is the data ? - set this to where you have it
+master_path_to_dataset = "TTBB-durham-02-10-17-sub10"; 
+directory_to_cycle_left = "left-images";     
+directory_to_cycle_right = "right-images";   
 
-master_path_to_dataset = "TTBB-durham-02-10-17-sub10"; # ** need to edit this **
-directory_to_cycle_left = "left-images";     # edit this if needed
-directory_to_cycle_right = "right-images";   # edit this if needed
 
-# set this to a file timestamp to start from (empty is first example - outside lab)
-# e.g. set to 1506943191.487683 for the end of the Bailey, just as the vehicle turns
-
-skip_forward_file_pattern = ""; # set to timestamp to skip forward to
+skip_forward_file_pattern = ""; 
 
 crop_disparity = False; # display full or cropped disparity image
 pause_playback = False; # pause until key press after each image
@@ -47,7 +27,6 @@ left_file_list = sorted(os.listdir(full_path_directory_left));
 # (adjust parameters if needed - this will effect speed to processing)
 
 # uses a modified H. Hirschmuller algorithm [Hirschmuller, 2008] that differs (see opencv manual)
-# parameters can be adjusted, current ones from [Hamilton / Breckon et al. 2013]
 
 # FROM manual: stereoProcessor = cv2.StereoSGBM(numDisparities=128, SADWindowSize=21);
 
